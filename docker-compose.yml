@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # AI Student Support Service
+  ai-student-support:
+    build: .
+    container_name: ai-student-support
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - CHROMA_PERSIST_DIRECTORY=/app/chroma_db
+      - CHROMA_COLLECTION_NAME=business_analysis_school
+      - EMBEDDING_MODEL=all-MiniLM-L6-v2
+      - SIMILARITY_THRESHOLD=0.6
+      - ENABLE_LOAD_BALANCING=true
+      - MAX_RETRIES=3
+      - RETRY_DELAY=1.0
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./model_cache:/app/model_cache
+      - ./.env:/app/.env:ro
+    depends_on:
+      - chromadb
+    restart: unless-stopped
+
+  # ChromaDB Vector Database
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    ports:
+      - "8001:8000"
+    environment:
+      - CHROMA_SERVER_HOST=0.0.0.0
+      - CHROMA_SERVER_HTTP_PORT=8000
+    volumes:
+      - ./chroma_db:/chroma/chroma
+    restart: unless-stopped
