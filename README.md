@@ -4,6 +4,13 @@
 
 A comprehensive, production-ready AI microservice that provides intelligent student support using **DeepSeek AI** with Retrieval-Augmented Generation (RAG) capabilities for context-aware responses.
 
+<img 
+  src="https://res.cloudinary.com/djkrhjgjd/image/upload/v1757060719/chatbot/swagger_core2_woexij.png" 
+  alt="Chatbot core"
+  style="width: 50%; height: auto;"
+/>
+
+
 ## ✨ **Key Features**
 
 ### 🤖 **AI Integration**
